@@ -5,13 +5,16 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>All the posts</title>
+    <title>Document</title>
 </head>
 <body>
+    <form action="/posts/create" method="post">
+        <label for="title">Title</label>
+        <input name="title" id="title">
 
-<div th:each="item: ${posts}">
-    <h1 th:text="${item.getTitle()}">Title: </h1>
-    <p th:text="${item.getBody()}">Title: </p>
-</div>
+        <label for="body">Description</label>
+        <input name="body" id="body">
+        <button type="submit">Submit</button>
+    </form>
 </body>
 </html>
