@@ -7,6 +7,7 @@ import javax.persistence.*;
 @Table(name = "posts")
 public class Post {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -16,6 +17,18 @@ public class Post {
 
     @Column
     private String body;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Post() {}
     public Post(String title, String body) {
