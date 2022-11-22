@@ -14,12 +14,13 @@ import java.util.List;
 @Controller
 public class PostController {
 
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
 
     private final PostRepository postRepository;
 
-    public PostController(PostRepository postRepository) {
+    public PostController(PostRepository postRepository, UserRepository userRepository) {
+        this.userRepository = userRepository;
         this.postRepository = postRepository;
     }
 
@@ -42,16 +43,41 @@ public class PostController {
     }
 
     @GetMapping("/posts/create")
-    public String getPostByID() {
-        return "/posts/create";
+    public String getPostByID(Model model) {
+        model.addAttribute("post", new Post());
+        return "posts/create";
     }
 
+//    @PostMapping("/posts/create")
+//    public String createPost(@RequestParam String title, @RequestParam String body, User user) {
+//        System.out.println("");
+//        Post post = new Post();
+//        post.setTitle(title);
+//        post.setBody(body);
+//        post.setUser(user);
+//        postRepository.save(post);
+//        return "redirect:/posts";
+//    }
+
     @PostMapping("/posts/create")
-    public String createPost(@RequestParam String title, @RequestParam String body, User user) {
-        System.out.println("");
-        Post post = new Post();
-        post.setTitle(title);
-        post.setBody(body);
+    public String createPost(@ModelAttribute Post post) {
+        User user = userRepository.getReferenceById(1L);
+        post.setUser(user);
+        postRepository.save(post);
+        return "redirect:/posts";
+    }
+
+    @GetMapping("/posts/{id}/edit")
+    public String editPostById(@PathVariable long id, Model model) {
+        model.addAttribute("post", postRepository.getReferenceById(id));
+        System.out.println();
+        return "posts/editPost";
+    }
+
+    @PostMapping("/posts/edit")
+    public String editPostById(@ModelAttribute Post post) {
+        User user = userRepository.getReferenceById(1L);
+        System.out.println("Post id: " + post.getId());
         post.setUser(user);
         postRepository.save(post);
         return "redirect:/posts";

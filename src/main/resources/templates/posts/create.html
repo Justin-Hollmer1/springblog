@@ -8,12 +8,20 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="/posts/create" method="post">
+<!--    <form action="/posts/create" method="post">-->
+<!--        <label for="title">Title</label>-->
+<!--        <input name="title" id="title">-->
+
+<!--        <label for="body">Description</label>-->
+<!--        <input name="body" id="body">-->
+<!--        <button type="submit">Submit</button>-->
+<!--    </form>-->
+    <form th:action="@{/posts/create}" th:method="post" th:object="${post}">
         <label for="title">Title</label>
-        <input name="title" id="title">
+        <input th:field="*{title}" id="title">
 
         <label for="body">Description</label>
-        <input name="body" id="body">
+        <input th:field="*{body}" id="body">
         <button type="submit">Submit</button>
     </form>
 </body>
