@@ -48,6 +48,10 @@ public class PostController {
     @GetMapping("/posts/create")
     public String getPostByID(Model model) {
         model.addAttribute("post", new Post());
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (currentUser.getUsername() == null) {
+            return "redirect:/login";
+        }
         return "posts/create";
     }
 

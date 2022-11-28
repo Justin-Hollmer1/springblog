@@ -10,7 +10,8 @@
 <body>
 
 <div th:each="item: ${posts}">
-    <h1 th:text="${item.getTitle()}">Title: </h1>
+    <h1 th:text="${item.getUser().getUsername()}">User Who Posted: </h1>
+    <h3 th:text="${item.getTitle()}">Title: </h3>
     <p th:text="${item.getBody()}">Title: </p>
 </div>
 </body>

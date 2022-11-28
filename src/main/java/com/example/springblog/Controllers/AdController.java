@@ -20,6 +20,4 @@ class AdController {
         model.addAttribute("ads", adDao.findAll());
         return "ads/index";
     }
-
-    // ...
 }
