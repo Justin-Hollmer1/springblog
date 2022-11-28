@@ -1,4 +1,5 @@
 package com.example.springblog.Controllers;
+import com.example.springblog.EmailService;
 import com.example.springblog.Repos.PostRepository;
 import com.example.springblog.Repos.UserRepository;
 import com.example.springblog.models.Post;
@@ -18,10 +19,12 @@ public class PostController {
 
 
     private final PostRepository postRepository;
+    private EmailService emailService;
 
-    public PostController(PostRepository postRepository, UserRepository userRepository) {
+    public PostController(PostRepository postRepository, UserRepository userRepository, EmailService emailService) {
         this.userRepository = userRepository;
         this.postRepository = postRepository;
+        this.emailService = emailService;
     }
 
     @GetMapping("/posts")
@@ -64,6 +67,7 @@ public class PostController {
         User user = userRepository.getReferenceById(1L);
         post.setUser(user);
         postRepository.save(post);
+        emailService.prepareAndSend(post, "Post Created", "This is the body of the post Title: " + post.getTitle());
         return "redirect:/posts";
     }
 
