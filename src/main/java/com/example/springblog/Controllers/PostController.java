@@ -1,10 +1,10 @@
 package com.example.springblog.Controllers;
-import com.example.springblog.EmailService;
+import com.example.springblog.Services.EmailService;
 import com.example.springblog.Repos.PostRepository;
 import com.example.springblog.Repos.UserRepository;
 import com.example.springblog.models.Post;
 import com.example.springblog.models.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -64,8 +64,8 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String createPost(@ModelAttribute Post post) {
-        User user = userRepository.getReferenceById(1L);
-        post.setUser(user);
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        post.setUser(currentUser);
         postRepository.save(post);
         emailService.prepareAndSend(post, "Post Created", "This is the body of the post Title: " + post.getTitle());
         return "redirect:/posts";

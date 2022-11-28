@@ -1,4 +1,4 @@
-package com.example.springblog;
+package com.example.springblog.Services;
 import com.example.springblog.models.Ad;
 import com.example.springblog.models.Post;
 import org.springframework.beans.factory.annotation.Autowired;
