@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .navbar {
+            display: flex;
+            background-color: lightskyblue;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0;
+        }
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div>
+        <h1>Adlister Project</h1>
+    </div>
+    <div>
+
+<!--    This form will be rendered if there is no user logged in.    -->
+        <form th:if="user.username" th:action="@{/login}" method="get">
+            <button>User not logged in</button>
+        </form>
+
+<!--    This form will be rendered if there is a user logged in.    -->
+        <form th:if="!user.username" th:action="">
+            <button>User logged in</button>
+        </form>
+
+    </div>
+</nav>
+
+</body>
+</html>

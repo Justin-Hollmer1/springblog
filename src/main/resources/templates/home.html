@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -10,9 +10,15 @@
         h1 {
             color: red;
         }
+        body {
+            margin: 0;
+        }
     </style>
 </head>
 <body>
+<!--    This is the navbar    -->
+    <div th:include="partials/navbar"></div>
+
 
     <h1>This is the home page</h1>
 
