@@ -1,5 +1,7 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -28,13 +30,13 @@
     <div>
 
 <!--    This form will be rendered if there is no user logged in.    -->
-        <form th:if="user.username" th:action="@{/login}" method="get">
-            <button>User not logged in</button>
+        <form sec:authorize="isAuthenticated()" th:action="@{/login}" method="get">
+            <button type="submit">Login</button>
         </form>
 
 <!--    This form will be rendered if there is a user logged in.    -->
-        <form th:if="!user.username" th:action="">
-            <button>User logged in</button>
+        <form sec:authorize="!isAuthenticated()" th:action="@{/logout}" method="get">
+            <button type="submit">Logout</button>
         </form>
 
     </div>

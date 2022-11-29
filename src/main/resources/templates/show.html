@@ -8,11 +8,12 @@
     <title>All the posts</title>
 </head>
 <body>
-
+<h1>Viewing all posts</h1>
 <div th:each="item: ${posts}">
     <h1 th:text="${item.getUser().getUsername()}">User Who Posted: </h1>
     <h3 th:text="${item.getTitle()}">Title: </h3>
     <p th:text="${item.getBody()}">Title: </p>
+<!--    Need to add in conditional rendering for delete and edit functionality    -->
 </div>
 </body>
 </html>

@@ -37,8 +37,8 @@ public class SecurityConfiguration {
                 /* Login configuration */
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/ads") // user's home page, it can be any URL
-                .permitAll() // Anyone can go to the login page
+                .defaultSuccessUrl("/posts") // user's home page, it can be any URL
+                .permitAll()// Anyone can go to the login page
                 /* Logout configuration */
                 .and()
                 .logout()
@@ -55,8 +55,7 @@ public class SecurityConfiguration {
                         "/posts/create", // only authenticated users can create ads
                         "/posts/{id}/edit" // only authenticated users can edit ads
                 )
-                .authenticated()
-        ;
+                .authenticated();
         return http.build();
     }
 

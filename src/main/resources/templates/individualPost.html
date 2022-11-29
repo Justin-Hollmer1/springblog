@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        h1 {
+            color: red;
+        }
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<!--    This is the navbar    -->
+<div th:include="partials/navbar"></div>
+
+<div th:object="${post}">
+    <h1 th:text="${post.getUser().getUsername()}">User Who Posted: </h1>
+    <h3 th:text="${post.getTitle()}">Title: </h3>
+    <p th:text="${post.getBody()}">Title: </p>
+</div>
+
+</body>
+</html>

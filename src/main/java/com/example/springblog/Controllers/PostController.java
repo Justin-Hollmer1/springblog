@@ -35,14 +35,15 @@ public class PostController {
     }
 
     @GetMapping("/posts/{id}")
-    public String getPostByID(@PathVariable int id, Model model) {
+    public String getPostByID(@PathVariable long id, Model model) {
         Post post = new Post();
-        post.setTitle("This is the post title: " + id);
-        post.setBody("This is the post body: " + id);
-        model.addAttribute("postTitle", post.getTitle());
-        model.addAttribute("postBody", post.getBody());
-        model.addAttribute("postUserEmail", post.getUser().getEmail());
-        return "/index";
+//        post.setTitle("This is the post title: " + id);
+//        post.setBody("This is the post body: " + id);
+//        model.addAttribute("postTitle", post.getTitle());
+//        model.addAttribute("postBody", post.getBody());
+//        model.addAttribute("postUserEmail", post.getUser().getEmail());
+        model.addAttribute("post", postRepository.getReferenceById(id));
+        return "/individualPost";
     }
 
     @GetMapping("/posts/create")
@@ -52,19 +53,8 @@ public class PostController {
         if (currentUser.getUsername() == null) {
             return "redirect:/login";
         }
-        return "posts/create";
+        return "/posts/create";
     }
-
-//    @PostMapping("/posts/create")
-//    public String createPost(@RequestParam String title, @RequestParam String body, User user) {
-//        System.out.println("");
-//        Post post = new Post();
-//        post.setTitle(title);
-//        post.setBody(body);
-//        post.setUser(user);
-//        postRepository.save(post);
-//        return "redirect:/posts";
-//    }
 
     @PostMapping("/posts/create")
     public String createPost(@ModelAttribute Post post) {
@@ -79,7 +69,7 @@ public class PostController {
     public String editPostById(@PathVariable long id, Model model) {
         model.addAttribute("post", postRepository.getReferenceById(id));
         System.out.println();
-        return "posts/editPost";
+        return "/posts/editPost";
     }
 
     @PostMapping("/posts/edit")
@@ -88,6 +78,13 @@ public class PostController {
         System.out.println("Post id: " + post.getId());
         post.setUser(user);
         postRepository.save(post);
+        return "redirect:/posts";
+    }
+
+    @PostMapping("/posts/{id}/delete")
+    public String deletePost(@PathVariable long id) {
+        Post postToDelete = postRepository.getReferenceById(id);
+        postRepository.delete(postToDelete);
         return "redirect:/posts";
     }
 
